@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1748045450660
+current_stage: None
+description: ''
+last_updated_timestamp: 1748045450660
+name: corazon
+run_id: 2e001767d9e9499cbfc2584a240edeb6
+run_link: ''
+source: file:///c:/Users/Javier/Documents/Utpl/Herramientas/Proyecto Corazón/mlruns/828798877481150983/2e001767d9e9499cbfc2584a240edeb6/artifacts/rf_medical_model
+status: READY
+status_message: null
+storage_location: file:///c:/Users/Javier/Documents/Utpl/Herramientas/Proyecto Corazón/mlruns/828798877481150983/2e001767d9e9499cbfc2584a240edeb6/artifacts/rf_medical_model
+user_id: null
+version: 1

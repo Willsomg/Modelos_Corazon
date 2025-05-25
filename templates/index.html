@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>❤️ Predicción de riesgo de ataques cardíacos</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial;
+      background: linear-gradient(to bottom right, #ffcccc, #ff6666);
+      min-height: 100vh;
+    }
+    .container {
+      background: rgba(255, 230, 230, 0.9);
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    h1 {
+      text-align: center;
+      color: #cc0000;
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+    }
+    .link-top {
+      margin-bottom: 1rem;
+      display: block;
+      text-align: center;
+      color: #cc0000;
+      text-decoration: none;
+    }
+    .link-top:hover { text-decoration: underline; }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      font-size: 1rem;
+    }
+    button {
+      align-self: center;
+      width: 80%;
+      padding: 0.6rem;
+      background: #cc0000;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background: #990000;
+    }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #ffe5e5;
+      border-radius: 4px;
+    }
+    .error {
+      color: #900;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>❤️ Predicción de riesgo de ataques cardíacos</h1>
+
+    <a class="link-top" href="{{ url_for('registros') }}">Ver registros y gráficos</a>
+
+    {% if error %}
+      <div class="error">❌ {{ error }}</div>
+    {% endif %}
+    {% if prediction %}
+      <div class="result">
+        <strong>{{ prediction }}</strong>
+      </div>
+    {% endif %}
+
+    <form method="post">
+      {% set ordered_fields = [
+           'Gender',
+           'Age',
+           'Heart rate',
+           'Blood sugar',
+           'Systolic blood pressure',
+           'Diastolic blood pressure',
+           'CK-MB',
+           'Troponin'
+         ] %}
+      {% for f in ordered_fields %}
+        {% set label = {
+             'Gender': 'Género',
+             'CK-MB': 'CK-MB',
+             'Troponin': 'Troponina',
+             'Age': 'Edad',
+             'Heart rate': 'Frecuencia cardíaca',
+             'Systolic blood pressure': 'Presión sistólica',
+             'Diastolic blood pressure': 'Presión diastólica',
+             'Blood sugar': 'Glucosa en sangre'
+           }[f] %}
+        <div>
+          <label for="{{ f }}">{{ label }}</label>
+          {% if f == 'Gender' %}
+            <select name="Gender" id="Gender" required>
+              <option value="">— Selecciona género —</option>
+              <option value="1">Hombre</option>
+              <option value="0">Mujer</option>
+            </select>
+          {% else %}
+            <input type="text" name="{{ f }}" id="{{ f }}" required>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit">Predecir riesgo</button>
+    </form>
+  </div>
+</body>
+</html>
